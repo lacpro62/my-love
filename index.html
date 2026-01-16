@@ -20,12 +20,52 @@
         }
         
         .postcard {
-            width: 700px;
+            width: 90%;
+            max-width: 700px;
             background: #f5f5f0;
             padding: 60px;
             position: relative;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             border-radius: 3px;
+        }
+
+        @media (max-width: 600px) {
+            .postcard {
+                padding: 30px;
+            }
+            .header {
+                font-size: 32px;
+                letter-spacing: 4px;
+            }
+            .salutation {
+                font-size: 32px;
+            }
+            .letter-body {
+                font-size: 18px;
+            }
+            .footer {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .address-section {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .address-left {
+                width: 100%;
+            }
+            .stamps {
+                width: 100%;
+                justify-content: center;
+            }
+            .stamp {
+                width: 60px;
+                height: 80px;
+            }
+            /* Hide decorative floating icons on small screens to prevent clutter/overflow */
+            .floating-icon {
+                display: none;
+            }
         }
         
         .postcard::before {
