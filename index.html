@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday My Baby</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Dancing+Script:wght@400;700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #d4c5b9 0%, #e8ddd1 100%);
+            font-family: 'Playfair Display', serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .postcard {
+            width: 700px;
+            background: #f5f5f0;
+            padding: 60px;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            border-radius: 3px;
+        }
+        
+        .postcard::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(90deg, transparent, transparent 19px, #f0f0f0 19px, #f0f0f0 20px),
+                repeating-linear-gradient(0deg, transparent, transparent 19px, #f0f0f0 19px, #f0f0f0 20px);
+            pointer-events: none;
+        }
+        
+        .scalloped-edge {
+            position: relative;
+            background: white;
+            padding: 50px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .scalloped-edge::before {
+            content: '';
+            position: absolute;
+            top: -15px;
+            left: -15px;
+            right: -15px;
+            bottom: -15px;
+            background: 
+                radial-gradient(circle at 0 0, transparent 15px, white 15px, white 20px, transparent 20px),
+                radial-gradient(circle at 100% 0, transparent 15px, white 15px, white 20px, transparent 20px),
+                radial-gradient(circle at 100% 100%, transparent 15px, white 15px, white 20px, transparent 20px),
+                radial-gradient(circle at 0 100%, transparent 15px, white 15px, white 20px, transparent 20px);
+            background-size: 40px 40px;
+            background-position: 0 0, 100% 0, 100% 100%, 0 100%;
+            background-repeat: repeat-x, repeat-x, repeat-x, repeat-x;
+            z-index: -1;
+        }
+        
+        .header {
+            text-align: center;
+            color: #b94a48;
+            font-size: 48px;
+            font-weight: 400;
+            letter-spacing: 8px;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+        }
+        
+        .address-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .address-left {
+            flex: 1;
+        }
+        
+        .address-line {
+            margin: 15px 0;
+            color: #b94a48;
+        }
+        
+        .label {
+            text-transform: uppercase;
+            font-size: 14px;
+            letter-spacing: 2px;
+            display: inline-block;
+            width: 70px;
+        }
+        
+        .value {
+            font-family: 'Dancing Script', cursive;
+            font-size: 32px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #b94a48;
+            display: inline-block;
+            min-width: 200px;
+        }
+        
+        .stamps {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .stamp {
+            width: 80px;
+            height: 100px;
+            border: 3px dashed #b94a48;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            position: relative;
+        }
+        
+        .stamp-icon {
+            font-size: 36px;
+            color: #d4668c;
+            margin-bottom: 5px;
+        }
+        
+        .stamp-text {
+            font-size: 11px;
+            font-weight: 600;
+            color: #b94a48;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .salutation {
+            font-family: 'Dancing Script', cursive;
+            font-size: 42px;
+            color: #b94a48;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .letter-body {
+            font-family: 'Dancing Script', cursive;
+            font-size: 24px;
+            line-height: 1.8;
+            color: #b94a48;
+            margin: 30px 0;
+            text-align: justify;
+        }
+        
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 40px;
+        }
+        
+        .date {
+            font-family: 'Dancing Script', cursive;
+            font-size: 36px;
+            color: #b94a48;
+        }
+        
+        .valentine-text {
+            text-align: center;
+        }
+        
+        .valentine-text .happy {
+            font-family: 'Dancing Script', cursive;
+            font-size: 38px;
+            color: #b94a48;
+            display: block;
+            line-height: 1;
+        }
+        
+        .valentine-text .vday {
+            font-size: 14px;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: #b94a48;
+        }
+        
+        .postmark {
+            width: 100px;
+            height: 60px;
+            border: 2px solid #b94a48;
+            border-radius: 50%;
+            position: relative;
+            opacity: 0.7;
+        }
+        
+        .postmark::after {
+            content: '';
+            position: absolute;
+            right: -30px;
+            top: 10px;
+            width: 40px;
+            height: 40px;
+            border-top: 2px solid #b94a48;
+            border-radius: 50% 50% 0 0;
+            transform: rotate(20deg);
+        }
+        
+        .wavy-lines {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        
+        .wavy-line {
+            width: 50px;
+            height: 3px;
+            background: repeating-linear-gradient(90deg, #b94a48 0px, #b94a48 5px, transparent 5px, transparent 10px);
+            margin: 3px 0;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            50% { transform: translate(10px, -15px) rotate(5deg); }
+            100% { transform: translate(0, 0) rotate(0deg); }
+        }
+
+        .floating-icon {
+            position: absolute;
+            width: 60px;
+            opacity: 0.85;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+            animation: float 6s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .dl-heartbeat {
+            position: fixed; /* Fixed is better for cursor following if page scrolls, but absolute works if body is 100vh */
+            z-index: 9999; /* Higher than everything else */
+            width: 32px;
+            height: 32px;
+            fill: #ffd1dc;
+            opacity: 1;
+            pointer-events: none;
+            animation: heartFloatUp 1.2s ease-out forwards;
+            transform: translate(-50%, -50%); /* Center on cursor */
+        }
+
+        @keyframes heartFloatUp {
+            0% { transform: translate(-50%, -100%) scale(1); opacity: 1; }
+            100% { transform: translate(-50%, -200%) scale(1.4); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <div class="postcard">
+        <div class="scalloped-edge">
+            <div class="header">HAPPY BIRTHDAY</div>
+            
+            <div class="address-section">
+                <div class="address-left">
+                    <div class="address-line">
+                        <span class="label">TO:</span>
+                        <span class="value">Cúnmimi</span>
+                    </div>
+                    <div class="address-line">
+                        <span class="label">FROM:</span>
+                        <span class="value">guss</span>
+                    </div>
+                </div>
+                
+                <div class="stamps">
+                    <div class="stamp">
+                        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/1CKkMf50UvplRK_1.jpeg" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Stamp 1">
+                    </div>
+                    <div class="stamp">
+                        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/Bs5qtgb0WWhmQZ_N.jpeg" style="width: 100%; height: 100%; object-fit: cover; display: block;" alt="Stamp 2">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="salutation">My Baby 🌸,</div>
+            
+            <div class="letter-body">
+                Thời gian qua em đã chịu rất nhìu tổn thương, anh biết anh không thể bù đắp hết được cho baby, anh chỉ mong em luôn mạnh khỏe và bình an. Đừng mạnh mẽ nữa nha, cứ yếu đuối bên cạnh anh đi. Anh luôn đồng hành cùng em, chúng ta là một mà ♥️. 
+Giờ mới chúc nè, anh chúc baby tuổi mới năm mới tràn đầy năng lượng nha, cấp độ xinh đẹp tăng theo cấp số tetration, sức khỏe tăng theo hàm Ackermann và mọi điều sẽ đến với em một cách nhẹ nhàng hơn nha.
+Anh yêu em 💞
+            </div>
+            
+            <div class="footer">
+                <div class="date">25/01</div>
+                
+                <div class="valentine-text">
+                    <span class="happy">happy</span>
+                    <span class="vday">Birthday</span>
+                </div>
+                
+                <div class="postmark">
+                    <div class="wavy-lines">
+                        <div class="wavy-line"></div>
+                        <div class="wavy-line"></div>
+                        <div class="wavy-line"></div>
+                        <div class="wavy-line"></div>
+                        <div class="wavy-line"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Icons positioned relative to postcard -->
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/ivg_zH70qXfNciNm.svg+xml" class="floating-icon" style="top: -60px; left: -80px; width: 60px; animation-delay: 0s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/ivg_zH70qXfNciNm.svg+xml" class="floating-icon" style="top: -80px; left: 50%; width: 50px; animation-delay: 2s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/ivg_zH70qXfNciNm.svg+xml" class="floating-icon" style="top: -50px; right: 20%; width: 55px; animation-delay: 1.5s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/ivg_zH70qXfNciNm.svg+xml" class="floating-icon" style="top: 40%; right: -120px; width: 50px; animation-delay: 3s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/ivg_zH70qXfNciNm.svg+xml" class="floating-icon" style="bottom: -50px; right: -90px; width: 70px; animation-delay: 1s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/ivg_zH70qXfNciNm.svg+xml" class="floating-icon" style="bottom: 40%; left: -110px; width: 45px; animation-delay: 4s;">
+
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/TFeOAFWhuLV6HmOu.svg+xml" class="floating-icon" style="top: -50px; right: -70px; width: 65px; animation-delay: 2.5s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/TFeOAFWhuLV6HmOu.svg+xml" class="floating-icon" style="top: 20%; left: -130px; width: 55px; animation-delay: 0.5s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/TFeOAFWhuLV6HmOu.svg+xml" class="floating-icon" style="bottom: 30%; right: -110px; width: 60px; animation-delay: 3.5s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/TFeOAFWhuLV6HmOu.svg+xml" class="floating-icon" style="bottom: -90px; left: 50%; width: 50px; animation-delay: 1.2s;">
+        
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/MQWaWZ_4-oIbaTQG.svg+xml" class="floating-icon" style="top: -90px; left: 15%; width: 40px; animation-delay: 0.5s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/MQWaWZ_4-oIbaTQG.svg+xml" class="floating-icon" style="top: 15%; right: -100px; width: 45px; animation-delay: 2.5s;">
+
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/ICkpIcgUPTlWtawx.svg+xml" class="floating-icon" style="bottom: -40px; left: -60px; width: 50px; animation-delay: 1.0s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/ICkpIcgUPTlWtawx.svg+xml" class="floating-icon" style="top: -100px; left: 60%; width: 55px; animation-delay: 3s;">
+
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/Iuy8Iq_v5wi4RYCA.svg+xml" class="floating-icon" style="bottom: 20%; left: -100px; width: 35px; animation-delay: 0.2s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/Iuy8Iq_v5wi4RYCA.svg+xml" class="floating-icon" style="top: 60%; right: -130px; width: 45px; animation-delay: 2.2s;">
+
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/q2fhl_zqpNNi8VHP.svg+xml" class="floating-icon" style="top: -70px; left: 35%; width: 40px; animation-delay: 1.8s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/q2fhl_zqpNNi8VHP.svg+xml" class="floating-icon" style="bottom: -60px; right: 25%; width: 50px; animation-delay: 3.8s;">
+
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/RKM41QTNEKA-aqAA.svg+xml" class="floating-icon" style="top: 50%; left: -140px; width: 60px; animation-delay: 4.5s;">
+        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/RKM41QTNEKA-aqAA.svg+xml" class="floating-icon" style="bottom: -80px; left: 10%; width: 45px; animation-delay: 1.5s;">
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const roseUrl = "https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/7OoePbIKXVIg3IYw.svg+xml";
+            const tulipUrl = "https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/dTS84zSUfARE1mMh.svg+xml";
+
+            function createFloatingIcons(url, count, minSize = 15, maxSize = 40) {
+                for (let i = 0; i < count; i++) {
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.classList.add('floating-icon');
+                    
+                    // Random position with center exclusion (20-80%) to keep them "far around"
+                    let top, left;
+                    do {
+                        top = Math.random() * 100;
+                        left = Math.random() * 100;
+                    } while (top > 15 && top < 85 && left > 25 && left < 75);
+
+                    const size = minSize + Math.random() * (maxSize - minSize);
+                    const delay = Math.random() * 8; // Varied delays
+                    
+                    // Override styles for background scattering
+                    img.style.position = 'fixed';
+                    img.style.top = top + 'vh';
+                    img.style.left = left + 'vw';
+                    img.style.width = size + 'px';
+                    img.style.animationDelay = delay + 's';
+                    img.style.zIndex = '50'; // Behind the main icons (100) but visible
+                    
+                    document.body.appendChild(img);
+                }
+            }
+            
+            createFloatingIcons(roseUrl, 50, 15, 40);
+            createFloatingIcons(tulipUrl, 50, 10, 25); // Smaller tulips
+        });
+
+        // Floating Hearts Cursor Effect (Vanilla JS version)
+        document.addEventListener('DOMContentLoaded', () => {
+            let lastMove = 0;
+            const heartSVG = `
+                <svg class='dl-heartbeat' viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+            `;
+
+            document.addEventListener('mousemove', (e) => {
+                const now = Date.now();
+
+                // Generate a heart every 100ms (adjusted for smoother feel)
+                if (now - lastMove > 100) {
+                    lastMove = now;
+
+                    const heartContainer = document.createElement('div');
+                    heartContainer.innerHTML = heartSVG;
+                    const heart = heartContainer.firstElementChild;
+
+                    // Use clientX/Y for fixed positioning to handle scrolling accurately with fixed position
+                    heart.style.left = e.clientX + 'px';
+                    heart.style.top = e.clientY + 'px';
+
+                    document.body.appendChild(heart);
+
+                    // Remove the heart after animation ends
+                    setTimeout(() => {
+                        heart.remove();
+                    }, 1200);
+                }
+            });
+        });
+    </script>
+</body>
+</html>
