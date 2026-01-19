@@ -27,6 +27,7 @@
             position: relative;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
             border-radius: 3px;
+            z-index: 60; /* Ensure postcard sits above background floating items */
         }
 
         @media (max-width: 600px) {
@@ -297,10 +298,61 @@
             0% { transform: translate(-50%, -100%) scale(1); opacity: 1; }
             100% { transform: translate(-50%, -200%) scale(1.4); opacity: 0; }
         }
+
+        /* Entrance Screen Styles */
+        #entrance-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            background: transparent; /* Allows body gradient to show */
+        }
+
+        #open-btn {
+            padding: 15px 50px;
+            font-size: 24px;
+            font-family: 'Playfair Display', serif;
+            background-color: #b94a48;
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(185, 74, 72, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        #open-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(185, 74, 72, 0.4);
+            background-color: #a03c3a;
+        }
+
+        #main-content {
+            display: none; /* Initially hidden */
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
     </style>
 </head>
 <body>
-    <div class="postcard">
+    <div id="entrance-screen">
+        <button id="open-btn">Open 💌</button>
+    </div>
+
+    <div id="main-content">
+        <div class="postcard">
         <div class="scalloped-edge">
             <div class="header">HAPPY BIRTHDAY</div>
             
@@ -329,17 +381,18 @@
             <div class="salutation">My Baby 🌸,</div>
             
             <div class="letter-body">
-                Thời gian qua em đã chịu rất nhìu tổn thương, anh biết anh không thể bù đắp hết được cho baby, anh chỉ mong em luôn mạnh khỏe và bình an. Đừng mạnh mẽ nữa nha, cứ yếu đuối bên cạnh anh đi. Anh luôn đồng hành cùng em, chúng ta là một mà ♥️. 
-Giờ mới chúc nè, anh chúc baby tuổi mới năm mới tràn đầy năng lượng nha, cấp độ xinh đẹp tăng theo cấp số tetration, sức khỏe tăng theo hàm Ackermann và mọi điều sẽ đến với em một cách nhẹ nhàng hơn nha.
-Anh yêu em 💞
+                Thời gian qua em đã chịu rất nhìu tổn thương, anh biết anh không thể bù đắp hết được cho baby, anh chỉ mong em luôn mạnh khỏe và bình an. Đừng cố mạnh mẽ nữa nha, cứ yếu đuối bên cạnh anh đi. Anh luôn đồng hành cùng em, chúng ta là một mà ♥️.<br>
+                Giờ mới chúc nè, anh chúc baby tuổi mới năm mới tràn đầy năng lượng nha, cấp độ xinh đẹp tăng theo cấp số tetration, sức khỏe tăng theo hàm Ackermann và mọi điều sẽ đến với em một cách nhẹ nhàng hơn nha.<br>
+                Anh yêu em 💞<br>
+                P/S: Cái vòng của mình giúp cân bằng năng lượng, bảo vệ em và mang lại bình an á nhaa. Anh mong mình sẽ bên nhau thật lâuuuuuuuuuuuuuuuuuuuuuuuuuuuu tim tim❤️🔆
             </div>
             
             <div class="footer">
                 <div class="date">25/01</div>
                 
                 <div class="valentine-text">
-                    <span class="happy">happy</span>
-                    <span class="vday">Birthday</span>
+                    <span class="happy">thank you</span>
+                    <span class="vday">for coming into my life</span>
                 </div>
                 
                 <div class="postmark">
@@ -382,7 +435,42 @@ Anh yêu em 💞
         <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/RKM41QTNEKA-aqAA.svg+xml" class="floating-icon" style="top: 50%; left: -140px; width: 60px; animation-delay: 4.5s;">
         <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/RKM41QTNEKA-aqAA.svg+xml" class="floating-icon" style="bottom: -80px; left: 10%; width: 45px; animation-delay: 1.5s;">
     </div>
+    </div>
     <script>
+        let clickCount = 0;
+        const openBtn = document.getElementById('open-btn');
+        
+        openBtn.addEventListener('click', () => {
+            clickCount++;
+            
+            if (clickCount === 1) {
+                // 1st click: Button goes left
+                openBtn.style.transform = 'translateX(-350px)';
+            } else if (clickCount === 2) {
+                // 2nd click: Button goes right
+                openBtn.style.transform = 'translateX(350px)';
+            } else if (clickCount === 3) {
+                // 3rd click: Button goes up
+                openBtn.style.transform = 'translateY(-200px)';
+            } else {
+                // 4th click: Open the letter
+                const entrance = document.getElementById('entrance-screen');
+                const main = document.getElementById('main-content');
+                
+                entrance.style.transition = 'opacity 0.8s ease';
+                entrance.style.opacity = '0';
+                
+                setTimeout(() => {
+                    entrance.style.display = 'none';
+                    main.style.display = 'flex';
+                    // Small delay to ensure display:flex is applied before opacity transition
+                    setTimeout(() => {
+                        main.style.opacity = '1';
+                    }, 50);
+                }, 800);
+            }
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             const roseUrl = "https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/7OoePbIKXVIg3IYw.svg+xml";
             const tulipUrl = "https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/dTS84zSUfARE1mMh.svg+xml";
