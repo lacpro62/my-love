@@ -44,9 +44,12 @@
             .letter-body {
                 font-size: 18px;
             }
-            .footer {
+            .footer-row {
                 flex-direction: column;
                 gap: 20px;
+            }
+            .footer-frame {
+                height: 200px;
             }
             .address-section {
                 flex-direction: column;
@@ -201,9 +204,134 @@
         
         .footer {
             display: flex;
-            justify-content: space-between;
+            flex-direction: column;
             align-items: center;
             margin-top: 40px;
+        }
+        
+        .footer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .footer-frame {
+            width: 100%;
+            max-width: 500px;
+            height: 300px;
+            margin-top: 30px;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .mobile-helper {
+            /* Placeholder to ensure context match if needed, but not strictly required */
+        }
+
+        .chocolate-piece {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffc5d3 0%, #ffe6ea 25%, #ffa6b9 50%, #ffe6ea 75%, #ffc5d3 100%);
+            border: 4px solid #ff9eb5;
+            box-sizing: border-box;
+            z-index: 2;
+        }
+
+        .chocolate-piece::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 10px,
+                rgba(219, 112, 147, 0.1) 10px,
+                rgba(219, 112, 147, 0.1) 20px
+            );
+            pointer-events: none;
+        }
+
+        .piece-left {
+            clip-path: polygon(0 0, 50% 0, 53% 10%, 48% 23%, 52% 36%, 47% 49%, 52% 62%, 47% 77%, 52% 89%, 50% 100%, 0 100%);
+            transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 1s ease;
+        }
+
+        .piece-right {
+            clip-path: polygon(50% 0, 100% 0, 100% 100%, 50% 100%, 52% 89%, 47% 77%, 52% 62%, 47% 49%, 52% 36%, 48% 23%, 53% 10%);
+            transition: transform 1s cubic-bezier(0.25, 1, 0.5, 1), opacity 1s ease;
+        }
+
+        .wrapper-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Dancing Script', cursive;
+            font-size: 32px;
+            color: #f8f8f4;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            z-index: 3;
+            pointer-events: none;
+            width: 100%;
+            text-align: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .tearing .piece-left {
+            transform: translate(-120px, 30px) rotate(-10deg);
+            opacity: 0;
+        }
+
+        .tearing .piece-right {
+            transform: translate(120px, 30px) rotate(10deg);
+            opacity: 0;
+        }
+
+        .tearing .wrapper-text {
+            opacity: 0;
+        }
+
+        .photo-content {
+            width: 100%;
+            height: 100%;
+            border: 4px dashed #b94a48;
+            padding: 15px;
+            background: #fff;
+            box-sizing: border-box;
+            transform: rotate(-1deg);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            opacity: 0;
+            transform: scale(0.8) rotate(-1deg);
+            transition: all 0.6s ease 0.3s;
+        }
+
+        .memory-text {
+            flex: 1;
+            font-family: 'Dancing Script', cursive;
+            font-size: 22px;
+            color: #b94a48;
+            text-align: center;
+            line-height: 1.4;
+            padding-right: 15px;
+        }
+
+        .photo-content.revealed {
+            opacity: 1;
+            transform: scale(1) rotate(-1deg);
+        }
+
+        .photo-content:hover {
+            transform: rotate(0deg) scale(1.02);
         }
         
         .date {
@@ -233,11 +361,11 @@
         
         .postmark {
             width: 100px;
-            height: 60px;
+            height: 90px;
             border: 2px solid #b94a48;
             border-radius: 50%;
             position: relative;
-            opacity: 0.7;
+            opacity: 1;
         }
         
         .postmark::after {
@@ -381,27 +509,45 @@
             <div class="salutation">My Baby 🌸,</div>
             
             <div class="letter-body">
-                Thời gian qua em đã chịu rất nhìu tổn thương, anh biết anh không thể bù đắp hết được cho baby, anh chỉ mong em luôn mạnh khỏe và bình an. Đừng cố mạnh mẽ nữa nha, cứ yếu đuối bên cạnh anh đi. Anh luôn đồng hành cùng em, chúng ta là một mà ♥️.<br>
-                Giờ mới chúc nè, anh chúc baby tuổi mới năm mới tràn đầy năng lượng nha, cấp độ xinh đẹp tăng theo cấp số tetration, sức khỏe tăng theo hàm Ackermann và mọi điều sẽ đến với em một cách nhẹ nhàng hơn nha.<br>
-                Anh yêu em 💞<br>
-                P/S: Cái vòng của mình giúp cân bằng năng lượng, bảo vệ em và mang lại bình an á nhaa. Anh mong mình sẽ bên nhau thật lâuuuuuuuuuuuuuuuuuuuuuuuuuuuu tim tim❤️🔆
+                <b>Mode chuyên văn (em thích):</b><br>
+                Mới đó mà gần 1 năm rùi đó, anh vẫn nhớ cái ngày mà chúng ta gặp nhau lần đầu tiên, anh đã bị cuốn hút bởi năng lượng của em, giọng nói ngọt ngào ấy đã in sâu vào tâm trí anh. 
+                Kể từ hôm đó, em đã mang lại rất nhiều điều tích cực cho cuộc sống của anh, mặc dù anh không phải là người hoàn hảo, nhưng em đã chấp nhận và yêu thương anh với tất cả những gì anh có.
+                Anh rất biết ơn vì điều đó.
+                Thời gian qua em đã trải qua nhiều chuyện không được vui, vì khoảng cách địa lý mà anh đã không thể bên em mỗi khi em cần. Anh rất tiếc vì điều đó, nhưng anh muốn em biết rằng anh vẫn luôn ở đây,
+                sẵn sàng lắng nghe và hỗ trợ em bất cứ khi nào em cần. Chúng ta là một mà.<br>
+                Tuổi mới anh mong em lúc nào cũng khỏe mạnh, vui vẻ và luôn giữ được nguồn năng lượng như hiện tại nha. Mong những điều tốt đẹp sẽ đến với em.<br>
+                Chúc mừng sinh nhật baby của anh 💞<br><br>
+
+                <b>Mode của anh:</b><br>
+                *Ôm một cái thật chặt*, 
+                Anh yêu em 💞<br><br>
+
+                P/S: Đừng mạnh mẽ trước mặt anh, cứ yếu đuối nha baby. Có anh mà ❤️🔆
             </div>
             
             <div class="footer">
-                <div class="date">25/01</div>
-                
-                <div class="valentine-text">
-                    <span class="happy">thank you</span>
-                    <span class="vday">for coming into my life</span>
+                <div class="footer-row">
+                    <div class="date">25/01</div>
+                    
+                    <div class="valentine-text">
+                        <span class="happy">thank you</span>
+                        <span class="vday">for coming into my life</span>
+                    </div>
+                    
+                    <div class="postmark">
+                        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/fZm_T8MEagoBufsh.jpeg" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;">
+                    </div>
                 </div>
-                
-                <div class="postmark">
-                    <div class="wavy-lines">
-                        <div class="wavy-line"></div>
-                        <div class="wavy-line"></div>
-                        <div class="wavy-line"></div>
-                        <div class="wavy-line"></div>
-                        <div class="wavy-line"></div>
+
+                <div class="footer-frame" id="giftFrame">
+                    <div class="chocolate-piece piece-left"></div>
+                    <div class="chocolate-piece piece-right"></div>
+                    <div class="wrapper-text">bí mật nhỏ 🎀 </div>
+                    <div class="photo-content" id="photoContent">
+                        <div class="memory-text">
+                            Vòng đôi đó nhaaa<br><br>Ý nghĩa là dù ở đâu, anh vẫn luôn bảo vệ em. Bình an và hạnh phúc nha em iu của anh 💗
+                        </div>
+                        <img src="https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/kID3B5AUIAqdnrcD.jpeg" style="width: 55%; height: 100%; object-fit: contain; display: block; border-radius: 4px;" alt="Special Memory">
                     </div>
                 </div>
             </div>
@@ -471,6 +617,27 @@
             }
         });
 
+        // Chocolate wrapper unwrap effect
+        // Chocolate wrapper unwrap effect
+        document.addEventListener('DOMContentLoaded', () => {
+            const giftFrame = document.getElementById('giftFrame');
+            const photoContent = document.getElementById('photoContent');
+            let isUnwrapped = false;
+
+            if (giftFrame && photoContent) {
+                giftFrame.addEventListener('click', () => {
+                    if (!isUnwrapped) {
+                        isUnwrapped = true;
+                        // Add tearing class to container to trigger children animations
+                        giftFrame.classList.add('tearing');
+                        
+                        setTimeout(() => {
+                            photoContent.classList.add('revealed');
+                        }, 500); // Reveal photo sooner
+                    }
+                });
+            }
+        });
         document.addEventListener('DOMContentLoaded', () => {
             const roseUrl = "https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/7OoePbIKXVIg3IYw.svg+xml";
             const tulipUrl = "https://pub-8f1799f54f204b18b4d55cfeb052b923.r2.dev/user-uploads/21/dTS84zSUfARE1mMh.svg+xml";
